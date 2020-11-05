@@ -16,20 +16,24 @@ public class Accident {
 	
 	@Field("State")
 	public String state;
+	
+	@Field("Start_Time")	
+	public String start_time;
 			
 	@Field("start_location")	
-	public Location location;
+	public Location location;	
 	
 	public double distance;
 		
 	public Accident() {}
 	
-	public Accident(String id, String identificador, String city, String state, Location location) {
+	public Accident(String id, String identificador, String city, String state, Location location, String start_time) {
 		this.setId(id);
 		this.setIdentificador(identificador);
 		this.setCity(city);
 		this.setState(state);
-		this.setLocation(location);
+		this.setStart_time(start_time);
+		this.setLocation(location);		
 	}
 	
 	public Accident(String id, String identificador, double distance) {
@@ -84,6 +88,14 @@ public class Accident {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public String getStart_time() {
+		return start_time;
+	}
+
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
 	}	
 
 }

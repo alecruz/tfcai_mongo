@@ -25,14 +25,12 @@ public interface AccidentRepository extends MongoRepository<Accident, String> {
 							+ "}}"})
 	public List<Common> findByCommonFeatures();
 	
+	
 	@Query("{'start_location': {$nearSphere: {$geometry: {type : 'Point', coordinates : [ ?1, ?0 ]}, "
 			+ "$minDistance: 0, $maxDistance: ?2 }}}")
 	public List<Accident> findByLocation(double lat, double lon, double ratio);				
 	
-	/*
-	Devuelve la distancia promedio en metros desde el inicio hasta el final del accidente.
-	Se utilizó el campo $Distance(mi) de la base de datos
-	*/
+	
 	//@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}},{ '$limit': 100 }  "})
 	@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
 	public List<Accident> findByAverageDistance();

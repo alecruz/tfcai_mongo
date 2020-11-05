@@ -32,7 +32,7 @@ public class AccidentService implements IAccidentService {
 		hasta += " 23:59:59";					
 		this.getAccidentRepository().findByDate(desde, hasta).stream().map(a -> new AccidentDTO(a))
 			.collect(Collectors.toCollection(() -> result));
-		
+		System.out.println("#################: " + result.size());
 		return result;
 	}		
 
@@ -49,7 +49,7 @@ public class AccidentService implements IAccidentService {
 		ratio *= 1000;
 		this.getAccidentRepository().findByLocation(lat, lon, ratio).stream().map(a -> new AccidentDTO(a))			
 		.collect(Collectors.toCollection(() -> result));	
-			
+		System.out.println("#################: " + result.size());	
 		return result;
 	}
 	
@@ -70,7 +70,8 @@ public class AccidentService implements IAccidentService {
 	public List<DistanceDTO> getAccidentsByAverageDistance() {
 		List<DistanceDTO> result = new ArrayList<DistanceDTO>();
 		this.getAccidentRepository().findByAverageDistance().stream().map(a -> new DistanceDTO(a))	
-		.collect(Collectors.toCollection(() -> result));	
+		.collect(Collectors.toCollection(() -> result));
+		System.out.println("#################: " + result.size());
 		return result;
 	}
 	

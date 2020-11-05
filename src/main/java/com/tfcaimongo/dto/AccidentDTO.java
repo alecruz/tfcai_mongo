@@ -5,22 +5,25 @@ import com.tfcaimongo.model.Location;
 
 public class AccidentDTO {
 
-	public String id;
+	private String id;
 	
-	public String identificador;
+	private String identificador;
 	
-	public String city;
+	private String city;
 	
-	public String state;
+	private String state;
 	
-	public Location location;
+	private String start_time;
 	
+	private Location location;
+		
 	public AccidentDTO(Accident anAccident) {
 		this.setId(anAccident.getId());
 		this.setCity(anAccident.getCity());
 		this.setIdentificador(anAccident.getIdentificador());
 		this.setState(anAccident.getState());
-		this.setLocation(anAccident.getLocation());
+		this.setStart_time(anAccident.getStart_time());
+		this.setLocation(anAccident.getLocation());		
 	}
 	
 	public String getId() {
@@ -62,8 +65,13 @@ public class AccidentDTO {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
-	
 
-	
+	public String getStart_time() {
+		return start_time;
+	}
+
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+		
 }
