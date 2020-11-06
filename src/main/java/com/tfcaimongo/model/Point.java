@@ -1,62 +1,57 @@
 package com.tfcaimongo.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
+public class Point implements Comparable<Point>{
 
-public class Point {
-
-	@Id
-	public String id;
+	private String name;	
 	
-	@Field("ID")
-	public String identificador;
-			
-	@Field("start_location")	
-	public Location location;
+	private double lat;
 	
-	public int count;
-			
-	public Point() {}
+	private double lon;
 	
-	public Point(String id, String identificador, Location location, int count) {
-		this.setId(id);
-		this.setIdentificador(identificador);
-		this.setLocation(location);
-		this.setCount(count);
-	}	
+	private int accidents;
 	
-	public String getId() {
-		return this.id;
+	public Point(String name, double lat, double lon, int accidents) {
+		this.setName(name);
+		this.setLat(lat);
+		this.setLon(lon);
+		this.setAccidents(accidents);
 	}
 
-	public void setId(String anId) {
-		this.id = anId;
+	public String getName() {
+		return name;
 	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public int getAccidents() {
+		return accidents;
+	}
+
+	public void setAccidents(int accidents) {
+		this.accidents = accidents;
+	}
+
+	public int compareTo(Point comparestu) {
+        int compareaccidents=((Point)comparestu).getAccidents();
+        return compareaccidents-this.accidents;
+    }
 	
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}	
-	
-	
-
 }

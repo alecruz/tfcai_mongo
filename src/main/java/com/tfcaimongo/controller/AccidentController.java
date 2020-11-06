@@ -36,8 +36,7 @@ public class AccidentController {
 	@GetMapping(value = "/api/accidents_by_common_features")
 	public ResponseEntity<?> getAccidentsByCommonFeatures() {
 		ResponseEntity<?> response = null;
-		Collection<Common> result = new ArrayList<Common>();
-		result.addAll(this.getAccidentsService().getAccidentsByCommonFeatures());
+		Common result = this.getAccidentsService().getAccidentsByCommonFeatures();
 		response = ResponseEntity.ok(result);
 
 		return response;
@@ -53,11 +52,11 @@ public class AccidentController {
 		return response;
 	}
 	
-	@GetMapping(value = "/api/accidents_by_dangerous_points")
+	@GetMapping(value = "/api/accidents_by_dangerous_points1")
 	public ResponseEntity<?> getAccidentsByDangerousPoints(@RequestBody AccidentRequestDTO request) {
 		ResponseEntity<?> response = null;
 		Collection<Point> result = new ArrayList<Point>();
-		result.addAll(this.getAccidentsService().getAccidentsByDangerousPoints(request.getRatio()));
+		result.addAll(this.getAccidentsService().getAccidentsByDangerousPoints1(request.getRatio(), request.getPoints()));
 		response = ResponseEntity.ok(result);
 		
 		return response;

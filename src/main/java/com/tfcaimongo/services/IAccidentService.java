@@ -11,12 +11,12 @@ public interface IAccidentService {
 
 	public List<AccidentDTO> getAccidentsByDate(String desde, String hasta);
 	
-	public List<Common> getAccidentsByCommonFeatures();
+	public Common getAccidentsByCommonFeatures();
 	
 	public List<AccidentDTO> getAccidentsByLocation(double lat, double lon, double ratio);
 	
 	public List<DistanceDTO> getAccidentsByAverageDistance();
 	
-	public List<Point> getAccidentsByDangerousPoints(double ratio);
+	public List<Point> getAccidentsByDangerousPoints1(double ratio, List<Point> points);
 	
 }

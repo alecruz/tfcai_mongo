@@ -31,13 +31,12 @@ public interface AccidentRepository extends MongoRepository<Accident, String> {
 	public List<Accident> findByLocation(double lat, double lon, double ratio);				
 	
 	
-	//@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}},{ '$limit': 100 }  "})
-	@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
+		@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
 	public List<Accident> findByAverageDistance();
 	
 		
-	@Aggregation(pipeline = {"{$geoNear: {near: { type: 'Point', coordinates: [?1, ?0]} , "
+	/*@Aggregation(pipeline = {"{$geoNear: {near: { type: 'Point', coordinates: [?1, ?0]} , "
 			+ "distanceField: 'dist.calculated', maxDistance: ?2}},{$project: {'ID' : 1}}"})								
-	public List<Point> findByLocationDangerousPoint(double lat, double lon, double ratio);	
+	public List<Point> findByLocationDangerousPoint1(double lat, double lon, double ratio);	*/
 	
 }

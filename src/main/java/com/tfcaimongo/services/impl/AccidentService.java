@@ -1,6 +1,7 @@
 package com.tfcaimongo.services.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tfcaimongo.dto.AccidentDTO;
 import com.tfcaimongo.dto.DistanceDTO;
-import com.tfcaimongo.model.Accident;
 import com.tfcaimongo.model.Common;
 import com.tfcaimongo.model.Point;
 import com.tfcaimongo.repository.AccidentRepository;
@@ -38,8 +38,8 @@ public class AccidentService implements IAccidentService {
 
 	
 	@Override
-	public List<Common> getAccidentsByCommonFeatures() {
-		return this.getAccidentRepository().findByCommonFeatures();
+	public Common getAccidentsByCommonFeatures() {
+		return this.getAccidentRepository().findByCommonFeatures().get(0);
 	}
 	
 	@Override
@@ -53,16 +53,21 @@ public class AccidentService implements IAccidentService {
 		return result;
 	}
 	
-	
-	public List<Point> getAccidentsByDangerousPoints(double ratio) {		
-		List<Point> result = new ArrayList<Point>();
-		List<Accident> accidents = this.accidentRepository.findAll();			
-		Point p;			
-		for(Accident a : accidents) { 		
-			p = new Point(a.getId(), a.getIdentificador(), a.getLocation(), this.getAccidentRepository().findByLocationDangerousPoint(a.getLocation().getCoordinates()[1], a.getLocation().getCoordinates()[0], ratio * 1000).size()); 
-			result.add(p);
+	public List<Point> getAccidentsByDangerousPoints1(double ratio, List<Point> points) {	
+		//Paso el radio a metros
+		ratio *= 1000;
+		
+		for(Point p: points) {
+			
+			//Por cada punto ingresado por el usuario cuento la cantidad de accidentes teniendo en cuenta el radio
+			p.setAccidents(this.getAccidentRepository().findByLocation(p.getLat(), p.getLon(), ratio).size());			
 		}		
-		return result;
+		
+		//Ordeno la colección de forma descendente
+		Collections.sort(points);
+		
+		//Retorno solo los primeros 5 elementos
+		return points.stream().limit(5).collect(Collectors.toList());
 	}
 	
 	
@@ -83,6 +88,7 @@ public class AccidentService implements IAccidentService {
 	public void setAccidentRepository(AccidentRepository aRepository) {
 		this.accidentRepository = aRepository;
 	}
+
 
 	
 	
