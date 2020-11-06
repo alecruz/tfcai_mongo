@@ -12,8 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tfcaimongo.dto.AccidentDTO;
 import com.tfcaimongo.dto.DistanceDTO;
+import com.tfcaimongo.dto.Point2DTO;
+import com.tfcaimongo.dto.PointDTO;
 import com.tfcaimongo.model.Common;
-import com.tfcaimongo.model.Point;
 import com.tfcaimongo.repository.AccidentRepository;
 import com.tfcaimongo.services.IAccidentService;
 
@@ -53,11 +54,11 @@ public class AccidentService implements IAccidentService {
 		return result;
 	}
 	
-	public List<Point> getAccidentsByDangerousPoints1(double ratio, List<Point> points) {	
+	public List<PointDTO> getAccidentsByDangerousPoints1(double ratio, List<PointDTO> points) {	
 		//Paso el radio a metros
 		ratio *= 1000;
 		
-		for(Point p: points) {
+		for(PointDTO p: points) {
 			
 			//Por cada punto ingresado por el usuario cuento la cantidad de accidentes teniendo en cuenta el radio
 			p.setAccidents(this.getAccidentRepository().findByLocation(p.getLat(), p.getLon(), ratio).size());			
@@ -68,6 +69,11 @@ public class AccidentService implements IAccidentService {
 		
 		//Retorno solo los primeros 5 elementos
 		return points.stream().limit(5).collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<Point2DTO> getAccidentsByDangerousPoints2() {
+		return this.getAccidentRepository().findByLocationDangerousPoint2();
 	}
 	
 	
@@ -88,6 +94,9 @@ public class AccidentService implements IAccidentService {
 	public void setAccidentRepository(AccidentRepository aRepository) {
 		this.accidentRepository = aRepository;
 	}
+
+
+	
 
 
 	

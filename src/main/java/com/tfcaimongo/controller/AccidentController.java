@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfcaimongo.dto.AccidentDTO;
 import com.tfcaimongo.dto.AccidentRequestDTO;
 import com.tfcaimongo.dto.DistanceDTO;
+import com.tfcaimongo.dto.Point2DTO;
+import com.tfcaimongo.dto.PointDTO;
 import com.tfcaimongo.model.Common;
-import com.tfcaimongo.model.Point;
 import com.tfcaimongo.services.IAccidentService;
 
 @RestController
@@ -53,10 +54,20 @@ public class AccidentController {
 	}
 	
 	@GetMapping(value = "/api/accidents_by_dangerous_points1")
-	public ResponseEntity<?> getAccidentsByDangerousPoints(@RequestBody AccidentRequestDTO request) {
+	public ResponseEntity<?> getAccidentsByDangerousPoints1(@RequestBody AccidentRequestDTO request) {
 		ResponseEntity<?> response = null;
-		Collection<Point> result = new ArrayList<Point>();
+		Collection<PointDTO> result = new ArrayList<PointDTO>();
 		result.addAll(this.getAccidentsService().getAccidentsByDangerousPoints1(request.getRatio(), request.getPoints()));
+		response = ResponseEntity.ok(result);
+		
+		return response;
+	}
+	
+	@GetMapping(value = "/api/accidents_by_dangerous_points2")
+	public ResponseEntity<?> getAccidentsByDangerousPoints2() {
+		ResponseEntity<?> response = null;
+		Collection<Point2DTO> result = new ArrayList<Point2DTO>();
+		result.addAll(this.getAccidentsService().getAccidentsByDangerousPoints2());
 		response = ResponseEntity.ok(result);
 		
 		return response;

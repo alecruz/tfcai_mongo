@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.tfcaimongo.dto.Point2DTO;
 import com.tfcaimongo.model.Accident;
 import com.tfcaimongo.model.Common;
-import com.tfcaimongo.model.Point;
 
 @Repository
 public interface AccidentRepository extends MongoRepository<Accident, String> {
@@ -31,12 +31,12 @@ public interface AccidentRepository extends MongoRepository<Accident, String> {
 	public List<Accident> findByLocation(double lat, double lon, double ratio);				
 	
 	
-		@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
+	@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
 	public List<Accident> findByAverageDistance();
 	
-		
-	/*@Aggregation(pipeline = {"{$geoNear: {near: { type: 'Point', coordinates: [?1, ?0]} , "
-			+ "distanceField: 'dist.calculated', maxDistance: ?2}},{$project: {'ID' : 1}}"})								
-	public List<Point> findByLocationDangerousPoint1(double lat, double lon, double ratio);	*/
+	
+	@Aggregation(pipeline = {"{'$facet': {'dangerous_points': ["
+							+ "{$group:{'_id':'$new_location','accidents':{'$sum':1}}},{'$sort':{'accidents':-1}},{'$limit':5}]}}"})								
+	public List<Point2DTO> findByLocationDangerousPoint2();	
 	
 }

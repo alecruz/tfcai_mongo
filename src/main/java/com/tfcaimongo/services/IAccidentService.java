@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.tfcaimongo.dto.AccidentDTO;
 import com.tfcaimongo.dto.DistanceDTO;
+import com.tfcaimongo.dto.Point2DTO;
+import com.tfcaimongo.dto.PointDTO;
 import com.tfcaimongo.model.Common;
-import com.tfcaimongo.model.Point;
 
 public interface IAccidentService {
 
@@ -17,6 +18,8 @@ public interface IAccidentService {
 	
 	public List<DistanceDTO> getAccidentsByAverageDistance();
 	
-	public List<Point> getAccidentsByDangerousPoints1(double ratio, List<Point> points);
+	public List<PointDTO> getAccidentsByDangerousPoints1(double ratio, List<PointDTO> points);
+	
+	public List<Point2DTO> getAccidentsByDangerousPoints2();
 	
 }
