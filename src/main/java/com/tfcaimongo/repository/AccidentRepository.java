@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.tfcaimongo.dto.Point2DTO;
 import com.tfcaimongo.model.Accident;
 import com.tfcaimongo.model.Common;
 
@@ -34,9 +33,5 @@ public interface AccidentRepository extends MongoRepository<Accident, String> {
 	@Aggregation(pipeline = {"{$project: { distance: {$divide: [{$multiply: [ '$Distance(mi)', 1609.34] }, 2] }, ID: 1}}"})
 	public List<Accident> findByAverageDistance();
 	
-	
-	@Aggregation(pipeline = {"{'$facet': {'dangerous_points': ["
-							+ "{$group:{'_id':'$new_location','accidents':{'$sum':1}}},{'$sort':{'accidents':-1}},{'$limit':5}]}}"})								
-	public List<Point2DTO> findByLocationDangerousPoint2();	
 	
 }
