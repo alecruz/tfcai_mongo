@@ -4,11 +4,11 @@ import com.tfcaimongo.model.Accident;
 
 public class DistanceDTO {
 
-	public String id;
+	private String id;
 	
-	public String identificador;
+	private String identificador;
 	
-	public double distance;
+	private double distance;
 	
 	public DistanceDTO(Accident anAccident) {
 		this.setId(anAccident.getId());
